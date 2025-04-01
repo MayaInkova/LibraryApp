@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Library</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            padding: 20px;
+        }
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 8px;
+            margin: 5px 0;
+            background-color: #ecf0f1;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .delete-btn {
+            padding: 4px 8px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>📚 Book Library</h1>
+
+        <h2>Books</h2>
+        <ul id="bookList"></ul>
+
+        <h2>Add New Book</h2>
+        <form id="AddBookForm">
+            <input type="text" id="title" placeholder="Book Title" required>
+            <input type="text" id="author" placeholder="Author" required>
+            <button type="submit">Add Book</button>
+        </form>
+    </div>
+
+    <script>
+        // Списък с книги
+        const bookList = document.getElementById('bookList');
+        const addBookForm = document.getElementById('AddBookForm');
+        const titleInput = document.getElementById('title');
+        const authorInput = document.getElementById('author');
+
+        // Функция за добавяне на книга
+        function addBook(title, author) {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                ${title} by ${author} 
+                <button class="delete-btn">Delete</button>
+            `;
+            // Добавяне на Delete функционалност
+            li.querySelector('.delete-btn').addEventListener('click', () => {
+                li.remove();
+            });
+            bookList.appendChild(li);
+        }
+
+        // Форма за добавяне на книга
+        addBookForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = titleInput.value.trim();
+            const author = authorInput.value.trim();
+            if (title && author) {
+                addBook(title, author);
+                titleInput.value = '';
+                authorInput.value = '';
+            }
+        });
+
+        // Примерни книги при зареждане
+        addBook('1984', 'George Orwell');
+        addBook('The Catcher in the Rye', 'J.D. Salinger');
+    </script>
+
+</body>
+</html>
